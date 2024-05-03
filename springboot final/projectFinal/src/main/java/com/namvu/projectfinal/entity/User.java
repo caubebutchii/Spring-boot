@@ -1,12 +1,13 @@
 package com.namvu.projectfinal.entity;
 
 import com.namvu.projectfinal.enumStatic.UserStatus;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 
 
 @Data

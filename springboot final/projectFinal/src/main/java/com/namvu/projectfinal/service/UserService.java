@@ -1,6 +1,7 @@
 package com.namvu.projectfinal.service;
 
 import com.namvu.projectfinal.entity.User;
+import com.namvu.projectfinal.enumStatic.UserStatus;
 import com.namvu.projectfinal.repository.UserRepository;
 import com.namvu.projectfinal.request.user.SignUpRequest;
 import com.namvu.projectfinal.response.user.UserResponse;
@@ -15,17 +16,16 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final UserRepository userRepository;
-//    private final BCryptPasswordEncoder encoder;
-    public UserService(UserRepository userRepository) {
+    private final BCryptPasswordEncoder encoder;
+    public UserService(UserRepository userRepository, BCryptPasswordEncoder encoder) {
         this.userRepository = userRepository;
-//        this.encoder = encoder;
+        this.encoder = encoder;
     }
 
     public UserResponse createUser(SignUpRequest request) {
         log.info("Sign up request: {}", request);
         // check username, email, phone
         if(userRepository.existsByUsername(request.getUsername())) {
-//            log.info("Username already exists");
                 throw new SecurityException("Username already exists");
         }
         if(userRepository.existsByEmail(request.getEmail())) {
@@ -34,8 +34,8 @@ public class UserService {
         User user = User.builder()
                 .username(request.getUsername())
                 .email(request.getEmail())
-//        encoder.encode(request.getPassword()
-                .password(request.getPassword())
+                .status(UserStatus.WAITING_CONFIRM)
+                .password(encoder.encode(request.getPassword()))
                 .build();
         user = userRepository.save(user);
         UserResponse response =  MapperUtil.mapObject(user, UserResponse.class);
