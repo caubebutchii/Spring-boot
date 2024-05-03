@@ -1,5 +1,6 @@
 package com.namvu.projectfinal.controller;
 
+import com.namvu.projectfinal.request.user.ActiveRequest;
 import com.namvu.projectfinal.request.user.SignUpRequest;
 import com.namvu.projectfinal.response.WrapResponse;
 import com.namvu.projectfinal.response.user.UserResponse;
@@ -24,5 +25,18 @@ public class UserController {
     {
         System.out.println(request);
         return WrapResponse.ok(userService.createUser(request));
+    }
+
+    @GetMapping("/profile/ ")
+    public WrapResponse<UserResponse> getProfile(@PathVariable String id)
+    {
+        return WrapResponse.ok(userService.getProfile(id));
+    }
+
+    @PostMapping("/active")
+    public WrapResponse<UserResponse> active(@RequestBody @Valid ActiveRequest request)
+    {
+        System.out.println(request);
+        return WrapResponse.ok(userService.active(request));
     }
 }
