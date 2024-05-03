@@ -1,13 +1,14 @@
-package com.namvu.springboot2.request;
+package com.namvu.springboot2.entity;
 
 import lombok.*;
 
-@Setter
-@Getter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@Getter
+@Setter
 public class User {
-    private long id;
+    private int id;
     private String name;
+    private String add;
 }
