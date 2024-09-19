@@ -5,13 +5,16 @@ import com.namvu.projectfinal.enumStatic.UserStatus;
 import com.namvu.projectfinal.exception.NotFoundException;
 import com.namvu.projectfinal.exception.ServiceException;
 import com.namvu.projectfinal.repository.UserRepository;
+import com.namvu.projectfinal.request.SearchRequest;
 import com.namvu.projectfinal.request.user.ActiveRequest;
+import com.namvu.projectfinal.request.user.AdminUpdateStatusRequest;
 import com.namvu.projectfinal.request.user.SignUpRequest;
 import com.namvu.projectfinal.response.user.UserResponse;
 import com.namvu.projectfinal.util.MapperUtil;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -64,5 +67,15 @@ public class UserService {
         user.setStatus(UserStatus.ACTIVE);
         user = userRepository.save(user);
         return MapperUtil.mapObject(user, UserResponse.class);
+    }
+
+
+
+    public String adminUpdateStatus(AdminUpdateStatusRequest request) {
+        return "";
+    }
+
+    public Page<User> search(SearchRequest request) {
+       return userRepository.findAll(request.getPage().getPageable());
     }
 }

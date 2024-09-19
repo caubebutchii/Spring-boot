@@ -27,7 +27,7 @@ public class UserController {
         return WrapResponse.ok(userService.createUser(request));
     }
 
-    @GetMapping("/profile/ ")
+    @GetMapping("/profile/{id}")
     public WrapResponse<UserResponse> getProfile(@PathVariable String id)
     {
         return WrapResponse.ok(userService.getProfile(id));
